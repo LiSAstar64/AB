@@ -79,7 +79,7 @@ h1 .hl{color:var(--pink);} h1 .hl2{color:var(--blue);}
   border:3px solid var(--blue-soft); max-width:420px; text-align:left; line-height:1.5;
 }
 .tabs{
-  max-width:980px; margin:16px auto 0; padding:0 16px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;
+  max-width:980px; margin:16px auto 0; padding:0 16px; display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:10px;
 }
 .tab-btn{
   border-radius:20px; padding:16px 10px; font-weight:900; font-size:19px; background:#fff; border:3px solid transparent;
@@ -87,7 +87,12 @@ h1 .hl{color:var(--pink);} h1 .hl2{color:var(--blue);}
 }
 .tab-btn:active{transform:scale(.96);}
 .tab-btn.active{border-color:currentColor; transform:translateY(-2px);}
-.tab-math{color:var(--pink);} .tab-clock{color:var(--blue);} .tab-soroban{color:var(--purple);}
+.tab-math{color:var(--pink);} .tab-clock{color:var(--blue);} .tab-soroban{color:var(--purple);} .tab-test{color:#0d7a3a;}
+.pill-test.active{background:#0d7a3a;}
+.test-scorebar{display:flex; gap:8px; align-items:center; margin:10px 0; font-weight:900;}
+.test-progress{flex:1; height:16px; background:#f2f0f5; border-radius:999px; overflow:hidden;}
+.test-progress > div{height:100%; width:0%; background:linear-gradient(90deg,#2ecc71,#3ba7ff); transition:width .3s;}
+.result-emoji{font-size:64px;}
 .tab-btn small{display:block; font-size:12px; font-weight:700; color:var(--muted); margin-top:3px;}
 main{max-width:980px; margin:0 auto; padding:16px;}
 .panel{display:none;}
@@ -135,33 +140,40 @@ main{max-width:980px; margin:0 auto; padding:16px;}
 .btn-pink{background:var(--pink);} .btn-blue{background:var(--blue);} .btn-purple{background:var(--purple);} .btn-green{background:var(--green);}
 .btn-ghost{background:#fff; color:var(--ink); border:3px solid #eee;}
 .hint-box{background:var(--blue-soft); border-radius:16px; padding:12px 14px; font-weight:700; line-height:1.6; margin-top:12px; font-size:15px;}
-/* clock */
+/* clock — 詳しく見やすく */
 .clock-wrap{display:flex; gap:18px; align-items:center; justify-content:center; flex-wrap:wrap;}
-.clock-svg{width:min(300px,80vw); height:auto; filter:drop-shadow(0 8px 16px rgba(0,0,0,.15));}
+.clock-svg{width:min(360px,88vw); height:auto; filter:drop-shadow(0 10px 20px rgba(45,42,50,.18));}
+.clock-legend{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:10px;}
+.clock-legend span{background:#fff; border-radius:999px; padding:6px 12px; font-weight:900; font-size:13px; box-shadow:0 4px 10px rgba(0,0,0,.08);}
+.clock-legend .lg-h{border:3px solid #1a1a1a;} .clock-legend .lg-m{border:3px solid #1a1a1a; color:#1a1a1a;} .clock-legend .lg-s{border:3px solid #d32f2f; color:#d32f2f;}
 .clock-choices{width:100%;}
 .clock-choices .choice{font-size:23px; min-height:66px;}
 .real-time{font-size:20px; font-weight:900; background:var(--ink); color:#fff; padding:8px 16px; border-radius:999px; display:inline-block;}
-/* soroban */
+/* soroban — 市販の標準サイズ（21桁型）を想定した見た目 */
 .soroban-board{
-  display:flex; justify-content:center; gap:16px; background:linear-gradient(180deg,#b07a45,#8a5a2e);
-  padding:20px 14px; border-radius:20px; border:5px solid #6d4320; margin:14px 0; overflow-x:auto;
+  display:flex; justify-content:center; gap:10px; background:repeating-linear-gradient(180deg,#c89a64 0 10px,#b98752 10px 11px);
+  padding:26px 22px; border-radius:12px; border:10px solid #4a2f18; margin:14px auto; overflow-x:auto;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.35), inset 0 -8px 0 rgba(0,0,0,.18), 0 10px 24px rgba(45,42,50,.2);
+  width:fit-content; max-width:100%;
 }
-.soroban-col{width:92px; flex:none; display:flex; flex-direction:column; align-items:center;}
-.soroban-col-label{color:#fff; font-weight:900; font-size:20px; margin-bottom:8px; background:rgba(0,0,0,.25); padding:2px 12px; border-radius:999px;}
-.upper-zone{height:76px; width:100%; display:flex; align-items:flex-end; justify-content:center; position:relative;}
-.beam{width:100%; height:18px; background:#4a2f18; border-radius:6px; box-shadow:inset 0 2px 0 rgba(255,255,255,.25); z-index:3;}
-.lower-zone{height:150px; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding-top:4px;}
+.soroban-col{width:68px; flex:none; display:flex; flex-direction:column; align-items:center; position:relative;}
+.soroban-col::before{content:""; position:absolute; top:44px; bottom:8px; left:50%; width:3px; margin-left:-1.5px; background:linear-gradient(#e8e8e8,#a8a8a8); border-radius:2px; z-index:1; box-shadow:0 0 2px rgba(0,0,0,.4);}
+.soroban-col-label{color:#fff; font-weight:900; font-size:14px; margin-bottom:8px; background:rgba(74,47,24,.85); padding:3px 10px; border-radius:999px; z-index:2;}
+.upper-zone{height:66px; width:100%; display:flex; align-items:flex-end; justify-content:center; position:relative; z-index:2;}
+.beam{width:100%; height:14px; background:linear-gradient(#e8c88f,#b98752); border-radius:4px; box-shadow:inset 0 1px 0 #fff8, 0 1px 2px rgba(0,0,0,.4); z-index:3;}
+.lower-zone{height:176px; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding-top:2px; z-index:2;}
 .bead{
-  width:76px; height:38px; border-radius:50%; margin:4px 0; border:3px solid rgba(0,0,0,.25);
-  box-shadow:0 4px 8px rgba(0,0,0,.3), inset 0 -6px 0 rgba(0,0,0,.15), inset 0 6px 0 rgba(255,255,255,.35);
-  transition:transform .18s, opacity .18s; cursor:pointer; position:relative; z-index:2;
+  width:56px; height:38px; border-radius:50%; margin:3px 0; border:2px solid #5d3d1e;
+  background:radial-gradient(ellipse at 50% 38%, #e8c08a 0%, #c89a64 45%, #8a5a2e 100%);
+  box-shadow:0 3px 6px rgba(0,0,0,.35), inset 0 -3px 0 rgba(0,0,0,.18), inset 0 3px 0 rgba(255,255,255,.35);
+  transition:transform .18s, opacity .18s; cursor:pointer; position:relative; z-index:2; flex:none;
 }
-.bead small{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:13px; color:rgba(255,255,255,.9);}
-.bead-upper{width:76px;}
-.bead.off{opacity:.55; transform:scale(.94);}
+.bead small{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:12px; color:#fff8e0; text-shadow:0 1px 2px rgba(0,0,0,.5);}
+.bead-upper{width:56px; background:radial-gradient(ellipse at 50% 38%, #e8c08a 0%, #c89a64 45%, #8a5a2e 100%);}
+.bead.off{opacity:.85;}
 .bead.on{opacity:1;}
 .bead-upper.on{transform:translateY(0);}
-.bead-upper.off{transform:translateY(-26px);}
+.bead-upper.off{transform:translateY(-20px);}
 .soroban-value{font-size:42px; font-weight:900; text-align:center; margin:10px 0;}
 .soroban-value span{color:var(--purple);}
 .numpad{display:grid; grid-template-columns:repeat(5,1fr); gap:10px; max-width:420px; margin:12px auto;}
@@ -189,9 +201,9 @@ main{max-width:980px; margin:0 auto; padding:16px;}
 @media (max-width:640px){
   .choices{grid-template-columns:1fr; gap:10px;}
   .choice{min-height:64px; font-size:24px;}
-  .tabs{grid-template-columns:1fr 1fr 1fr; gap:8px;}
+  .tabs{grid-template-columns:1fr 1fr 1fr 1fr; gap:8px;}
   .tab-btn{font-size:15px; padding:12px 6px;}
-  .bead{width:64px;} .soroban-col{width:78px;}
+  .bead{width:48px; height:32px;} .soroban-col{width:60px;}
   .numpad{grid-template-columns:repeat(3,1fr);}
 }
 </style>
@@ -233,6 +245,7 @@ main{max-width:980px; margin:0 auto; padding:16px;}
   <button class="tab-btn tab-math active" data-tab="math">🔢 さんすう<small>たし算・ひき算</small></button>
   <button class="tab-btn tab-clock" data-tab="clock">🕐 とけい<small>時計を読む</small></button>
   <button class="tab-btn tab-soroban" data-tab="soroban">🧮 そろばん<small>玉を動かそう</small></button>
+  <button class="tab-btn tab-test" data-tab="test">🏆 100問テスト<small>正解で自動で次へ</small></button>
 </nav>
 
 <main>
@@ -300,16 +313,28 @@ main{max-width:980px; margin:0 auto; padding:16px;}
         <div class="problem-label" id="clockLabel">とけいは 何時？</div>
         <div id="clockQuestionText" style="font-size:26px; font-weight:900; margin-bottom:10px;"></div>
         <div class="clock-wrap" id="clockWrap">
-          <svg class="clock-svg" viewBox="0 0 200 200" id="clockSvg" aria-label="clock">
-            <circle cx="100" cy="100" r="96" fill="#ffffff" stroke="#ffd9e8" stroke-width="6"></circle>
+          <div>
+          <svg class="clock-svg" viewBox="0 0 240 240" id="clockSvg" aria-label="clock">
+            <defs>
+              <linearGradient id="bezel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8e8e8"/><stop offset="0.5" stop-color="#9a9a9a"/><stop offset="1" stop-color="#d5d5d5"/></linearGradient>
+              <radialGradient id="face" cx="0.5" cy="0.42" r="0.75"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f5f1e6"/></radialGradient>
+            </defs>
+            <circle cx="120" cy="120" r="116" fill="url(#bezel)" stroke="#555" stroke-width="2"></circle>
+            <circle cx="120" cy="120" r="104" fill="url(#face)" stroke="#888" stroke-width="1"></circle>
+            <g id="clockMinuteTicks"></g>
             <g id="clockTicks"></g>
+            <g id="clockMinNums"></g>
             <g id="clockNums"></g>
-            <line id="hourHand" x1="100" y1="100" x2="100" y2="45" stroke="#2d2a32" stroke-width="7" stroke-linecap="round"></line>
-            <line id="minHand" x1="100" y1="100" x2="100" y2="28" stroke="#ff6b9d" stroke-width="5" stroke-linecap="round"></line>
-            <line id="secHand" x1="100" y1="110" x2="100" y2="22" stroke="#3ba7ff" stroke-width="2" stroke-linecap="round" style="display:none"></line>
-            <circle cx="100" cy="100" r="8" fill="#2d2a32"></circle>
-            <circle cx="100" cy="100" r="3.5" fill="#fff"></circle>
+            <text x="120" y="158" text-anchor="middle" font-size="8" fill="#999" font-weight="700">QUARTZ</text>
+            <polygon id="hourHand" points="120,132 113,76 120,62 127,76" fill="#1a1a1a" stroke="#000" stroke-width="0.8"></polygon>
+            <polygon id="minHand" points="120,136 116,46 120,32 124,46" fill="#1a1a1a" stroke="#000" stroke-width="0.8"></polygon>
+            <g id="secHand" style="display:none"><line x1="120" y1="132" x2="120" y2="30" stroke="#d32f2f" stroke-width="2" stroke-linecap="round"></line><circle cx="120" cy="138" r="5" fill="#d32f2f"></circle></g>
+            <circle cx="120" cy="120" r="8" fill="#333" stroke="#c0c0c0" stroke-width="2"></circle>
+            <circle cx="120" cy="120" r="2.5" fill="#fff"></circle>
+            <ellipse cx="85" cy="50" rx="55" ry="22" fill="#fff" opacity="0.18" transform="rotate(-22 85 50)"/>
           </svg>
+          <div class="clock-legend"><span class="lg-h">● 短いはり = じかん</span><span class="lg-m">● 長いはり = ふん</span><span class="lg-s">● 細いはり = びょう</span></div>
+          </div>
         </div>
       </div>
       <div class="choices clock-choices" id="clockChoices"></div>
@@ -342,6 +367,8 @@ main{max-width:980px; margin:0 auto; padding:16px;}
         <button class="pill pill-soroban active" data-digits="2">2桁（1〜99）</button>
         <button class="pill pill-soroban" data-digits="1">1桁（1〜9）</button>
         <button class="pill pill-soroban" data-digits="3">3桁（100〜999）⭐</button>
+        <button class="pill pill-soroban" data-digits="4">4桁（1000〜9999）⭐</button>
+        <button class="pill pill-soroban" data-digits="5">5桁（10000〜99999）⭐⭐</button>
       </div>
       <div style="font-weight:900; margin-top:10px;">遊び方</div>
       <div class="pill-group" id="sorobanModeGroup">
@@ -392,6 +419,63 @@ main{max-width:980px; margin:0 auto; padding:16px;}
         <li>例：上の玉ON ＋ 下の玉2つ = <b>7</b>（5+2）</li>
         <li>10になったら隣の桁の玉を1つ動かすよ（くり上がり）</li>
       </ul>
+    </div>
+  </section>
+
+  <!-- TEST -->
+  <section class="panel" id="panel-test">
+    <div class="card" id="testStartCard">
+      <div class="card-head"><h2 class="card-title">🏆 100問テスト</h2><span class="combo-line">正解で自動で次の問題へ</span></div>
+      <p style="font-weight:700; line-height:1.8; color:#555;">制限時間なし。まちがえたら答えが出て次の問題に進みます。まずは10問で慣れてから100問に挑戦しよう！</p>
+      <div style="font-weight:900;">科目を選んでね</div>
+      <div class="pill-group" id="testSubjectGroup">
+        <button class="pill pill-test active" data-subject="mix">まぜる</button>
+        <button class="pill pill-test" data-subject="math">🔢 さんすう</button>
+        <button class="pill pill-test" data-subject="clock">🕐 とけい</button>
+        <button class="pill pill-test" data-subject="soroban">🧮 そろばん</button>
+      </div>
+      <div style="font-weight:900; margin-top:10px;">問題数を選んでね</div>
+      <div class="pill-group" id="testTotalGroup">
+        <button class="pill pill-test" data-total="10">10問おためし</button>
+        <button class="pill pill-test" data-total="50">50問</button>
+        <button class="pill pill-test active" data-total="100">100問</button>
+      </div>
+      <div class="action-row"><button class="big-btn btn-green" id="testStartBtn" style="font-size:20px; padding:16px 34px;">▶ スタート</button></div>
+    </div>
+    <div class="card hidden" id="testPlayCard">
+      <div class="card-head"><h2 class="card-title">🏆 テスト中</h2><span class="combo-line" id="testKindLabel">まぜる</span></div>
+      <div class="test-scorebar"><span id="testProgressText">1 / 100</span><div class="test-progress"><div id="testFill"></div></div><span id="testScoreText">⭐ 0</span></div>
+      <div class="problem-area">
+        <div class="problem-label" id="testLabel">もんだい</div>
+        <div class="problem-text" id="testProblem"></div>
+        <div id="testClockBox" class="hidden" style="display:flex; justify-content:center;">
+          <svg class="clock-svg" viewBox="0 0 240 240" id="testClockSvg" aria-label="test clock" style="width:min(300px,80vw);">
+            <defs><linearGradient id="bezelT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8e8e8"/><stop offset="0.5" stop-color="#9a9a9a"/><stop offset="1" stop-color="#d5d5d5"/></linearGradient><radialGradient id="faceT" cx="0.5" cy="0.42" r="0.75"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f5f1e6"/></radialGradient></defs>
+            <circle cx="120" cy="120" r="116" fill="url(#bezelT)" stroke="#555" stroke-width="2"></circle>
+            <circle cx="120" cy="120" r="104" fill="url(#faceT)" stroke="#888" stroke-width="1"></circle>
+            <g id="testMinuteTicks"></g><g id="testTicks"></g><g id="testMinNums"></g><g id="testNums"></g>
+            <polygon id="testHourHand" points="120,132 113,76 120,62 127,76" fill="#1a1a1a"></polygon>
+            <polygon id="testMinHand" points="120,136 116,46 120,32 124,46" fill="#1a1a1a"></polygon>
+            <circle cx="120" cy="120" r="8" fill="#333" stroke="#c0c0c0" stroke-width="2"></circle><circle cx="120" cy="120" r="2.5" fill="#fff"></circle>
+          </svg>
+        </div>
+        <div id="testSorobanBox" class="hidden">
+          <div style="font-weight:900; font-size:20px;">この数字をつくってね： <span id="testSorobanTarget" style="font-size:34px;">42</span></div>
+          <div id="testSorobanSlot" style="display:flex; justify-content:center;"></div>
+          <div class="soroban-value">今の数： <span id="testSorobanValue">0</span></div>
+          <div class="action-row"><button class="big-btn btn-ghost" id="testSorobanReset">もとにもどす</button><button class="big-btn btn-green" id="testSorobanCheck">できた！</button></div>
+        </div>
+      </div>
+      <div class="choices" id="testChoices"></div>
+      <div class="feedback idle" id="testFeedback">答えをタップしてね</div>
+      <div class="action-row"><button class="big-btn btn-ghost" id="testQuitBtn">テストをやめる</button></div>
+    </div>
+    <div class="card hidden" id="testResultCard" style="text-align:center;">
+      <div class="result-emoji" id="testResultEmoji">🏆</div>
+      <h2 id="testResultTitle" style="margin:10px 0;">テストおつかれさま！</h2>
+      <p id="testResultText" style="font-size:20px; font-weight:900; line-height:1.7;"></p>
+      <p id="testResultStars" style="font-size:28px;"></p>
+      <div class="action-row"><button class="big-btn btn-blue" id="testRetryBtn">もう一度</button><button class="big-btn btn-ghost" id="testBackBtn">設定にもどる</button></div>
     </div>
   </section>
 </main>
@@ -446,6 +530,8 @@ let sorobanDigits=2, sorobanMode='build';
 
 /* current problems */
 let mathQ=null, clockQ=null, sorobanTargetNum=42, sorobanAnswer=0, sorobanInput='';
+/* 正解時の自動で次の問題へのタイマー */
+let mathTimer=null, clockTimer=null, sorobanTimer=null;
 
 /* ========== audio ========== */
 let audioCtx=null;
@@ -598,7 +684,7 @@ function renderCombos(){
     ` さらに答えの選択肢・キャラの応援・ドット表示の組み合わせで、実質はもっと増えます。`;
   const cMap={hour:12,half:24,five:144,all:720};
   $('#clockCombo').textContent=`約 ${fmt(cMap[clockLevel]*3)} 通り（選択肢込）`;
-  const sMap={1:9,2:99,3:900};
+  const sMap={1:9,2:99,3:900,4:9000,5:90000};
   $('#sorobanCombo').textContent=`約 ${fmt(sMap[sorobanDigits])} 通り`;
   const total = 1000000+720+900+500000; // 1000まで + 時計 + そろばん3桁 + 100まで3数の一部重複を控えめに
   $('#totalCombo').textContent=`ぜんぶで約 ${fmt(total)} 通り以上`;
@@ -624,7 +710,7 @@ function genMath(){
     else { a=rand(101,1000); b=rand(1,a); }
     op='-'; ans=a-b; text=`${a} - ${b} = ?`;
     if(mathLevel==='10'||mathLevel==='20'){
-      dotsHtml=`${'●'.repeat(Math.min(a,20))}<br>（${a}こ から ${b}こ とる → ${ans}こ）`;
+      dotsHtml=`${'●'.repeat(Math.min(a,20))}<br>（${a}こ から ${b}こ とる）`;
     }
   } else if(kind==='three'){
     const max = mathLevel==='10'?9:mathLevel==='20'?19:mathLevel==='100'?50:99;
@@ -645,7 +731,7 @@ function genMath(){
     if(mathLevel==='10'||mathLevel==='20'){ a=rand(2,3); b=rand(1,5); }
     if(mathLevel==='100'){ a=rand(2,5); b=rand(1,9); }
     op='×'; ans=a*b; text=`${a} × ${b} = ?`;
-    dotsHtml=`${a}こを ${b}つ並べると ${ans}こ（${a}×${b}=${ans}）`;
+    dotsHtml=`${a}こを ${b}つ並べる`;
   }
   return {a,b,op,ans,text,dotsHtml,kind};
 }
@@ -667,6 +753,7 @@ function renderChoices(containerId, options, correctVal, onPick){
   });
 }
 function newMathProblem(){
+  if(mathTimer){ clearTimeout(mathTimer); mathTimer=null; }
   mathQ=genMath();
   $('#mathProblem').innerHTML=mathQ.text.replace('?','<span class="q">?</span>');
   $('#mathDots').innerHTML=mathQ.dotsHtml||'';
@@ -676,10 +763,12 @@ function newMathProblem(){
     if(v===mathQ.ans){
       btn.classList.add('correct'); onCorrect('math');
       fb.className='feedback good'; fb.textContent=`正解！ ${mathQ.text.replace('?','')} → ${mathQ.ans} 🎉`;
-      $$('#mathChoices .choice').forEach(x=>x.disabled=false);
+      fb.textContent+= ' つぎへ…';
+      $$('#mathChoices .choice').forEach(x=>x.disabled=true);
+      mathTimer=setTimeout(newMathProblem, 1100);
     } else {
       btn.classList.add('wrong'); onWrong();
-      fb.className='feedback try'; fb.textContent=`惜しい！もう一度考えてみよう（答えは ${mathQ.ans} じゃないよ）`;
+      fb.className='feedback try'; fb.textContent=`惜しい！もう一度考えてみよう`;
       setTimeout(()=>btn.classList.remove('wrong'),600);
     }
   });
@@ -692,7 +781,7 @@ $('#mathHintBtn').onclick=()=>{
   if(mathQ){
     if(mathQ.kind==='add') h.innerHTML=`💡 <b>たし算の工夫：</b> ${mathQ.a} + ${mathQ.b} → まず ${mathQ.a}こ数えて、そこから ${mathQ.b}こ増えます。指で数えてもOKだよ！`;
     else if(mathQ.kind==='sub') h.innerHTML=`💡 <b>ひき算の工夫：</b> ${mathQ.a} - ${mathQ.b} → ${mathQ.a}から数えはじめて、${mathQ.b}つ戻ると？`;
-    else if(mathQ.kind==='three') h.innerHTML=`💡 <b>3つの数の工夫：</b> 左から順番に計算！答えは ${mathQ.ans} だよ（まずは2つ計算してみよう）`;
+    else if(mathQ.kind==='three') h.innerHTML=`💡 <b>3つの数の工夫：</b> 左から順番に計算してみよう！`;
     else if(mathQ.kind==='mul') h.innerHTML=`💡 <b>かけ算の工夫：</b> ${mathQ.a} × ${mathQ.b} は「${mathQ.a}を${mathQ.b}回たす」こと。段ボールで歌いながら覚えよう！`;
   }
 };
@@ -702,25 +791,44 @@ pillGroup('#mathKindGroup', b=>{ mathKind=b.dataset.kind; newMathProblem(); });
 /* ========== CLOCK ========== */
 function drawTicks(){
   const ticks=$('#clockTicks'), nums=$('#clockNums');
+  const mt=$('#clockMinuteTicks'), mn=$('#clockMinNums');
+  const cx=120, cy=120;
+  // 分刻み（60本）— 細かい目盛り
+  for(let i=0;i<60;i++){
+    const ang=i*6*Math.PI/180;
+    const major=i%5===0;
+    const r1=major?96:100, r2=110;
+    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',cx+Math.sin(ang)*r1); line.setAttribute('y1',cy-Math.cos(ang)*r1);
+    line.setAttribute('x2',cx+Math.sin(ang)*r2); line.setAttribute('y2',cy-Math.cos(ang)*r2);
+    line.setAttribute('stroke',major?'#555':'#bbb'); line.setAttribute('stroke-width',major?'2':'1'); line.setAttribute('stroke-linecap','round');
+    mt.appendChild(line);
+  }
   for(let i=0;i<12;i++){
     const ang=i*30*Math.PI/180;
-    const x1=100+Math.sin(ang)*84, y1=100-Math.cos(ang)*84;
-    const x2=100+Math.sin(ang)*92, y2=100-Math.cos(ang)*92;
+    const x1=cx+Math.sin(ang)*84, y1=cy-Math.cos(ang)*84;
+    const x2=cx+Math.sin(ang)*94, y2=cy-Math.cos(ang)*94;
     const line=document.createElementNS('http://www.w3.org/2000/svg','line');
     line.setAttribute('x1',x1); line.setAttribute('y1',y1); line.setAttribute('x2',x2); line.setAttribute('y2',y2);
-    line.setAttribute('stroke','#d8d2e0'); line.setAttribute('stroke-width','3');
+    line.setAttribute('stroke','#2d2a32'); line.setAttribute('stroke-width','5'); line.setAttribute('stroke-linecap','round');
     ticks.appendChild(line);
     const txt=document.createElementNS('http://www.w3.org/2000/svg','text');
-    txt.setAttribute('x',100+Math.sin(ang)*68); txt.setAttribute('y',108-Math.cos(ang)*68);
-    txt.setAttribute('text-anchor','middle'); txt.setAttribute('font-size','18'); txt.setAttribute('font-weight','900'); txt.setAttribute('fill','#2d2a32');
+    txt.setAttribute('x',cx+Math.sin(ang)*68); txt.setAttribute('y',cy-Math.cos(ang)*68+9);
+    txt.setAttribute('text-anchor','middle'); txt.setAttribute('font-size','26'); txt.setAttribute('font-weight','900'); txt.setAttribute('fill','#2d2a32');
     txt.textContent=(i===0?12:i); nums.appendChild(txt);
+    // ふんの数字（5・10・15…）— 学習補助のため薄く表示
+    const mtxt=document.createElementNS('http://www.w3.org/2000/svg','text');
+    const minVal=i*5===0?60:i*5;
+    mtxt.setAttribute('x',cx+Math.sin(ang)*78); mtxt.setAttribute('y',cy-Math.cos(ang)*78+3);
+    mtxt.setAttribute('text-anchor','middle'); mtxt.setAttribute('font-size','9'); mtxt.setAttribute('font-weight','600'); mtxt.setAttribute('fill','#999');
+    mtxt.textContent=minVal; mn.appendChild(mtxt);
   }
 }
 function drawClock(h,m,sec){
   const ha=((h%12)*30+m*0.5), ma=m*6, sa=(sec||0)*6;
-  $('#hourHand').setAttribute('transform',`rotate(${ha} 100 100)`);
-  $('#minHand').setAttribute('transform',`rotate(${ma} 100 100)`);
-  $('#secHand').setAttribute('transform',`rotate(${sa} 100 100)`);
+  $('#hourHand').setAttribute('transform',`rotate(${ha} 120 120)`);
+  $('#minHand').setAttribute('transform',`rotate(${ma} 120 120)`);
+  $('#secHand').setAttribute('transform',`rotate(${sa} 120 120)`);
   $('#secHand').style.display = (sec!==undefined && clockMode==='now') ? 'block':'none';
 }
 function timeText(h,m){
@@ -754,6 +862,7 @@ function clockDistractors(h,m){
 }
 let clockSolved=0;
 function newClockProblem(){
+  if(clockTimer){ clearTimeout(clockTimer); clockTimer=null; }
   if(clockMode==='now'){
     $('#clockLabel').textContent='いまの時刻は？（1秒ごとに更新）';
     $('#clockQuestionText').textContent='時計を見て答えてね';
@@ -763,7 +872,7 @@ function newClockProblem(){
     const h=now.getHours()%12||12, m=now.getMinutes();
     const opts=shuffle(Array.from(new Set([timeText(h,m), timeText(h%12+1,m), timeText(h,(m+5)%60)])));
     renderChoices('#clockChoices', opts, timeText(h,m), (v,btn)=>{
-      if(v===timeText(h,m)){ btn.classList.add('correct'); onCorrect('clock'); const fb=$('#clockFeedback'); fb.className='feedback good'; fb.textContent='今の時刻にぴったり！その調子！'; }
+      if(v===timeText(h,m)){ btn.classList.add('correct'); onCorrect('clock'); const fb=$('#clockFeedback'); fb.className='feedback good'; fb.textContent='今の時刻にぴったり！その調子！ つぎへ…'; $$('#clockChoices .choice').forEach(x=>x.disabled=true); clockTimer=setTimeout(newClockProblem,1100); }
       else { btn.classList.add('wrong'); onWrong(); const fb=$('#clockFeedback'); fb.className='feedback try'; fb.textContent='ちがうよ。短い針と長い針を見直そう'; setTimeout(()=>btn.classList.remove('wrong'),600); }
     });
     $('#clockFeedback').className='feedback idle'; $('#clockFeedback').textContent='答えをタップしてね';
@@ -777,7 +886,7 @@ function newClockProblem(){
     $('#clockQuestionText').textContent='';
     drawClock(clockQ.h, clockQ.m);
     renderChoices('#clockChoices', clockDistractors(clockQ.h, clockQ.m), timeText(clockQ.h,clockQ.m), (v,btn)=>{
-      if(v===timeText(clockQ.h,clockQ.m)){ btn.classList.add('correct'); onCorrect('clock'); fb.className='feedback good'; fb.textContent=`正解！ ${timeText(clockQ.h,clockQ.m)} 🎉`; }
+      if(v===timeText(clockQ.h,clockQ.m)){ btn.classList.add('correct'); onCorrect('clock'); fb.className='feedback good'; fb.textContent=`正解！ ${timeText(clockQ.h,clockQ.m)} 🎉 つぎへ…`; $$('#clockChoices .choice').forEach(x=>x.disabled=true); clockTimer=setTimeout(newClockProblem,1100); }
       else { btn.classList.add('wrong'); onWrong(); fb.className='feedback try'; fb.textContent='もう一度見てみよう！短い針（じかん）と長い針（ふん）'; setTimeout(()=>btn.classList.remove('wrong'),600); }
     });
   } else {
@@ -790,7 +899,7 @@ function newClockProblem(){
     // draw a decoy clock (different time) to avoid giving away? Draw the correct clock — child must match text to face.
     drawClock(clockQ.h, clockQ.m);
     renderChoices('#clockChoices', clockDistractors(clockQ.h, clockQ.m), timeText(clockQ.h,clockQ.m), (v,btn)=>{
-      if(v===timeText(clockQ.h,clockQ.m)){ btn.classList.add('correct'); onCorrect('clock'); fb.className='feedback good'; fb.textContent=`正解！ ${timeText(clockQ.h,clockQ.m)} の時計だね`; }
+      if(v===timeText(clockQ.h,clockQ.m)){ btn.classList.add('correct'); onCorrect('clock'); fb.className='feedback good'; fb.textContent=`正解！ ${timeText(clockQ.h,clockQ.m)} の時計だね つぎへ…`; $$('#clockChoices .choice').forEach(x=>x.disabled=true); clockTimer=setTimeout(newClockProblem,1100); }
       else { btn.classList.add('wrong'); onWrong(); fb.className='feedback try'; fb.textContent='針の位置を見比べよう'; setTimeout(()=>btn.classList.remove('wrong'),600); }
     });
   }
@@ -800,7 +909,7 @@ $('#clockNext').onclick=()=>{ sndClick(); newClockProblem(); };
 $('#clockRandomBtn').onclick=()=>{ sndClick(); newClockProblem(); toast('新しい時計を作ったよ！'); };
 $('#clockHintBtn').onclick=()=>{
   const h=$('#clockHint'); h.classList.toggle('hidden');
-  if(clockQ) h.innerHTML=`💡 <b>おてほん：</b> 短い針は <b>${clockQ.h}</b> を指してるよ。長い針は <b>${clockQ.m}分</b>（${clockQ.m===0?'真上':clockQ.m===30?'真下':'数字の'+(clockQ.m/5)+'番目'}のあたり）を指してる。 → <b>${timeText(clockQ.h,clockQ.m)}</b>`;
+  if(clockQ) h.innerHTML=`💡 <b>おてほん：</b> 短い針は <b>${clockQ.h}</b> のあたりを指してるよ。長い針は <b>${clockQ.m}分</b>（${clockQ.m===0?'真上':clockQ.m===30?'真下':'数字の'+(clockQ.m/5)+'番目'}のあたり）を指してるよ。もう一度時計を見てみよう！`;
   else h.innerHTML=`💡 短い針＝じかん、長い針＝ふん。5分ごとに1つ進むよ。`;
 };
 pillGroup('#clockLevelGroup', b=>{ clockLevel=b.dataset.level; newClockProblem(); });
@@ -824,15 +933,16 @@ function setSoroban(n){
   cols=s.split('').map(ch=>{ let v=parseInt(ch,10); const up=v>=5?1:0; v-=up*5; return {upper:up, lower:v}; });
   renderSoroban();
 }
+function sorobanMax(){ return Math.pow(10,sorobanDigits)-1; }
+function sorobanMin(){ return sorobanDigits===1?1:Math.pow(10,sorobanDigits-1); }
 function renderSoroban(){
   const board=$('#sorobanBoard'); board.innerHTML='';
-  const labels = cols.length===1?['いち']:cols.length===2?['じゅう','いち']:['ひゃく','じゅう','いち'];
+  const labels = cols.length===1?['いち']:cols.length===2?['じゅう','いち']:cols.length===3?['ひゃく','じゅう','いち']:cols.length===4?['せん','ひゃく','じゅう','いち']:['まん','せん','ひゃく','じゅう','いち'];
   cols.forEach((col,ci)=>{
     const wrap=document.createElement('div'); wrap.className='soroban-col';
     wrap.innerHTML=`<div class="soroban-col-label">${labels[ci]}</div>`;
     const upZone=document.createElement('div'); upZone.className='upper-zone';
     const ub=document.createElement('button'); ub.className='bead bead-upper '+(col.upper?'on':'off');
-    ub.style.background = ci%2===0 ? 'linear-gradient(#ff8fb3,#e84d7a)' : 'linear-gradient(#8fd3ff,#3ba7ff)';
     ub.innerHTML='<small>5</small>';
     ub.onclick=()=>{ sndClick(); cols[ci].upper = cols[ci].upper?0:1; renderSoroban(); sorobanMoved(); };
     upZone.appendChild(ub);
@@ -842,7 +952,6 @@ function renderSoroban(){
     for(let i=0;i<4;i++){
       const b=document.createElement('button');
       b.className='bead '+(i<col.lower?'on':'off');
-      b.style.background = ci%2===0 ? 'linear-gradient(#8fd3ff,#3ba7ff)' : 'linear-gradient(#ffe08a,#ffb800)';
       b.innerHTML=`<small>1</small>`;
       b.onclick=()=>{ sndClick(); if(i<col.lower){ cols[ci].lower=i; } else { cols[ci].lower=i+1; } renderSoroban(); sorobanMoved(); };
       loZone.appendChild(b);
@@ -851,6 +960,7 @@ function renderSoroban(){
     board.appendChild(wrap);
   });
   $('#sorobanValue').textContent=sorobanValue();
+  const tv=$('#testSorobanValue'); if(tv) tv.textContent=sorobanValue();
 }
 function sorobanMoved(){
   if(sorobanMode==='read'){ /* allow free adjust too */ }
@@ -868,11 +978,10 @@ function updateSorobanFeedback(ok){
   }
 }
 function newSorobanProblem(){
+  if(sorobanTimer){ clearTimeout(sorobanTimer); sorobanTimer=null; }
   $('#sorobanHint').classList.add('hidden');
   if(sorobanMode==='build'){
-    const max = sorobanDigits===1?9:sorobanDigits===2?99:900;
-    sorobanTargetNum = rand(1,max) + (sorobanDigits===3?100:0);
-    if(sorobanDigits===3 && sorobanTargetNum>999) sorobanTargetNum=999;
+    sorobanTargetNum = rand(sorobanMin(), sorobanMax());
     setSoroban(0);
     $('#sorobanLabel').textContent='この数字をつくってね！';
     $('#sorobanTarget').textContent=sorobanTargetNum;
@@ -880,9 +989,7 @@ function newSorobanProblem(){
     $('#sorobanCheckBuildBtn').style.display='inline-block';
     updateSorobanFeedback(false);
   } else if(sorobanMode==='read'){
-    const max = sorobanDigits===1?9:sorobanDigits===2?99:900;
-    sorobanAnswer = rand(1,max) + (sorobanDigits===3?100:0);
-    if(sorobanDigits===3 && sorobanAnswer>999) sorobanAnswer=999;
+    sorobanAnswer = rand(sorobanMin(), sorobanMax());
     setSoroban(sorobanAnswer);
     sorobanInput='';
     $('#sorobanLabel').textContent='玉は何の数字？';
@@ -901,12 +1008,12 @@ function newSorobanProblem(){
   renderCombos();
 }
 $('#sorobanNextBtn').onclick=()=>{ sndClick(); newSorobanProblem(); };
-$('#sorobanRandomBtn').onclick=()=>{ sndClick(); if(sorobanMode==='free'){ setSoroban(rand(0, sorobanDigits===1?9:sorobanDigits===2?99:999)); updateSorobanFeedback(false);} else newSorobanProblem(); };
+$('#sorobanRandomBtn').onclick=()=>{ sndClick(); if(sorobanMode==='free'){ setSoroban(rand(0, sorobanMax())); updateSorobanFeedback(false);} else newSorobanProblem(); };
 $('#sorobanResetBtn').onclick=()=>{ sndClick(); setSoroban(0); updateSorobanFeedback(false); };
-$('#sorobanPlus1').onclick=()=>{ sndClick(); setSoroban(Math.min((sorobanDigits===1?9:sorobanDigits===2?99:999), sorobanValue()+1)); updateSorobanFeedback(false); };
-$('#sorobanPlus10').onclick=()=>{ sndClick(); setSoroban(Math.min((sorobanDigits===1?9:sorobanDigits===2?99:999), sorobanValue()+10)); updateSorobanFeedback(false); };
+$('#sorobanPlus1').onclick=()=>{ sndClick(); setSoroban(Math.min(sorobanMax(), sorobanValue()+1)); updateSorobanFeedback(false); };
+$('#sorobanPlus10').onclick=()=>{ sndClick(); setSoroban(Math.min(sorobanMax(), sorobanValue()+10)); updateSorobanFeedback(false); };
 $('#sorobanCheckBuildBtn').onclick=()=>{
-  if(sorobanValue()===sorobanTargetNum){ onCorrect('soroban'); const fb=$('#sorobanFeedback'); fb.className='feedback good'; fb.textContent=`正解！ ${sorobanTargetNum} をつくれたね 🎉`; }
+  if(sorobanValue()===sorobanTargetNum){ onCorrect('soroban'); const fb=$('#sorobanFeedback'); fb.className='feedback good'; fb.textContent=`正解！ ${sorobanTargetNum} をつくれたね 🎉 つぎへ…`; sorobanTimer=setTimeout(newSorobanProblem,1200); }
   else { onWrong(); const fb=$('#sorobanFeedback'); fb.className='feedback try'; fb.textContent=`惜しい！ 今 ${sorobanValue()} だよ。${sorobanTargetNum} に近づけてね`; }
 };
 $('#sorobanHintBtn').onclick=()=>{
@@ -928,11 +1035,157 @@ $('#sorobanHintBtn').onclick=()=>{
 $('#sorobanClearBtn').onclick=()=>{ sndClick(); sorobanInput=''; $('#sorobanInputDisplay').textContent='？'; };
 $('#sorobanCheckBtn').onclick=()=>{
   if(sorobanInput===''){ toast('数字を入力してね'); return; }
-  if(parseInt(sorobanInput,10)===sorobanAnswer){ onCorrect('soroban'); const fb=$('#sorobanFeedback'); fb.className='feedback good'; fb.textContent=`正解！ 玉は ${sorobanAnswer} だったよ 🎉`; }
+  if(parseInt(sorobanInput,10)===sorobanAnswer){ onCorrect('soroban'); const fb=$('#sorobanFeedback'); fb.className='feedback good'; fb.textContent=`正解！ 玉は ${sorobanAnswer} だったよ 🎉 つぎへ…`; sorobanTimer=setTimeout(newSorobanProblem,1200); }
   else { onWrong(); const fb=$('#sorobanFeedback'); fb.className='feedback try'; fb.textContent=`惜しい！ もう一度玉を見てみよう`; }
 };
 pillGroup('#sorobanDigitsGroup', b=>{ sorobanDigits=parseInt(b.dataset.digits,10); initSoroban(); newSorobanProblem(); });
 pillGroup('#sorobanModeGroup', b=>{ sorobanMode=b.dataset.mode; newSorobanProblem(); });
+
+/* ========== 100問テスト ========== */
+let testSubject='mix', testTotal=100;
+let testState=null, testTimer=null, boardHome=null; // boardHome: そろばん盤の元の場所
+function drawTestTicks(){
+  const mt=$('#testMinuteTicks'), ticks=$('#testTicks'), nums=$('#testNums'), mn=$('#testMinNums');
+  if(!mt||mt.childNodes.length) return;
+  const cx=120, cy=120;
+  for(let i=0;i<60;i++){
+    const ang=i*6*Math.PI/180, major=i%5===0, r1=major?96:100, r2=110;
+    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',cx+Math.sin(ang)*r1); line.setAttribute('y1',cy-Math.cos(ang)*r1);
+    line.setAttribute('x2',cx+Math.sin(ang)*r2); line.setAttribute('y2',cy-Math.cos(ang)*r2);
+    line.setAttribute('stroke',major?'#555':'#bbb'); line.setAttribute('stroke-width',major?'2':'1');
+    mt.appendChild(line);
+  }
+  for(let i=0;i<12;i++){
+    const ang=i*30*Math.PI/180;
+    const x1=cx+Math.sin(ang)*84, y1=cy-Math.cos(ang)*84, x2=cx+Math.sin(ang)*94, y2=cy-Math.cos(ang)*94;
+    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',x1); line.setAttribute('y1',y1); line.setAttribute('x2',x2); line.setAttribute('y2',y2);
+    line.setAttribute('stroke','#1a1a1a'); line.setAttribute('stroke-width','5'); line.setAttribute('stroke-linecap','round');
+    ticks.appendChild(line);
+    const txt=document.createElementNS('http://www.w3.org/2000/svg','text');
+    txt.setAttribute('x',cx+Math.sin(ang)*68); txt.setAttribute('y',cy-Math.cos(ang)*68+9);
+    txt.setAttribute('text-anchor','middle'); txt.setAttribute('font-size','26'); txt.setAttribute('font-weight','900'); txt.setAttribute('fill','#1a1a1a');
+    txt.textContent=(i===0?12:i); nums.appendChild(txt);
+    const mtxt=document.createElementNS('http://www.w3.org/2000/svg','text');
+    mtxt.setAttribute('x',cx+Math.sin(ang)*78); mtxt.setAttribute('y',cy-Math.cos(ang)*78+3);
+    mtxt.setAttribute('text-anchor','middle'); mtxt.setAttribute('font-size','9'); mtxt.setAttribute('fill','#999');
+    mtxt.textContent=(i*5===0?60:i*5); mn.appendChild(mtxt);
+  }
+}
+function drawTestClock(h,m){
+  $('#testHourHand').setAttribute('transform',`rotate(${((h%12)*30+m*0.5)} 120 120)`);
+  $('#testMinHand').setAttribute('transform',`rotate(${m*6} 120 120)`);
+}
+function moveBoardToTest(){
+  const board=$('#sorobanBoard'), slot=$('#testSorobanSlot');
+  if(boardHome===null) boardHome={parent:board.parentNode, next:board.nextSibling};
+  if(board.parentNode!==slot) slot.appendChild(board);
+}
+function moveBoardHome(){
+  const board=$('#sorobanBoard');
+  if(boardHome&&boardHome.parent) boardHome.parent.insertBefore(board, boardHome.next);
+  else $('#panel-soroban .card').appendChild(board);
+}
+function updateTestHeader(){
+  if(!testState) return;
+  $('#testProgressText').textContent=`${Math.min(testState.idx+1,testState.total)} / ${testState.total}`;
+  $('#testScoreText').textContent=`⭐ ${testState.correct}`;
+  $('#testFill').style.width=(testState.idx/testState.total*100)+'%';
+  $('#testKindLabel').textContent=testState.subject==='mix'?'まぜる':testState.subject==='math'?'🔢 さんすう':testState.subject==='clock'?'🕐 とけい':'🧮 そろばん';
+}
+function nextTestQuestion(){
+  if(!testState) return;
+  if(testState.idx>=testState.total){ finishTest(); return; }
+  clearTimeout(testTimer);
+  updateTestHeader();
+  const fb=$('#testFeedback'); fb.className='feedback idle'; fb.textContent='答えをタップしてね';
+  const kind = testState.subject==='mix' ? choice(['math','clock','soroban']) : testState.subject;
+  testState.kind=kind;
+  // 表示切り替え
+  $('#testSorobanBox').classList.toggle('hidden', kind!=='soroban');
+  $('#testClockBox').classList.toggle('hidden', kind!=='clock');
+  $('#testChoices').style.display = kind==='soroban' ? 'none':'grid';
+  if(kind==='math'){
+    const q=genMath(); testState.q=q;
+    $('#testLabel').textContent='さんすう';
+    $('#testProblem').innerHTML=q.text.replace('?','<span class="q">?</span>');
+    renderChoices('#testChoices', distractors(q.ans), q.ans, (v,btn)=>{
+      $$('#testChoices .choice').forEach(x=>x.disabled=true);
+      if(v===q.ans){ btn.classList.add('correct'); testState.correct++; sndCorrect(); fb.className='feedback good'; fb.textContent=`正解！ ${q.ans} 🎉`;
+        if(testState.correct%10===0){ sndCelebrate(); burst(innerWidth/2,180,60); } testTimer=setTimeout(()=>{ testState.idx++; nextTestQuestion(); },900); }
+      else { btn.classList.add('wrong'); sndWrong(); fb.className='feedback try'; fb.textContent=`ざんねん！つぎへ…`; testTimer=setTimeout(()=>{ testState.idx++; nextTestQuestion(); },1400); }
+      updateTestHeader();
+    });
+  } else if(kind==='clock'){
+    const q=genClock(); testState.q=q;
+    $('#testLabel').textContent='とけいは 何時？';
+    $('#testProblem').textContent='';
+    drawTestClock(q.h,q.m);
+    renderChoices('#testChoices', clockDistractors(q.h,q.m), timeText(q.h,q.m), (v,btn)=>{
+      $$('#testChoices .choice').forEach(x=>x.disabled=true);
+      if(v===timeText(q.h,q.m)){ btn.classList.add('correct'); testState.correct++; sndCorrect(); fb.className='feedback good'; fb.textContent=`正解！ ${timeText(q.h,q.m)} 🎉`; testTimer=setTimeout(()=>{ testState.idx++; nextTestQuestion(); },900); }
+      else { btn.classList.add('wrong'); sndWrong(); fb.className='feedback try'; fb.textContent=`ざんねん！つぎへ…`; testTimer=setTimeout(()=>{ testState.idx++; nextTestQuestion(); },1400); }
+      updateTestHeader();
+    });
+  } else {
+    // そろばん：2桁 build（1回で判定→自動で次へ）
+    const target=rand(1,99); testState.target=target; testState.answered=false;
+    $('#testLabel').textContent='そろばん';
+    $('#testProblem').textContent='';
+    $('#testSorobanTarget').textContent=target;
+    moveBoardToTest();
+    if(cols.length!==2){ sorobanDigits=2; initSoroban(); }
+    setSoroban(0);
+    fb.textContent='玉を動かして「できた！」を押してね';
+  }
+}
+function startTest(){
+  drawTestTicks();
+  testState={subject:testSubject, total:testTotal, idx:0, correct:0};
+  $('#testStartCard').classList.add('hidden'); $('#testResultCard').classList.add('hidden'); $('#testPlayCard').classList.remove('hidden');
+  say('テストスタート！正解すると自動で次の問題になります。がんばってね！');
+  nextTestQuestion();
+}
+function finishTest(){
+  clearTimeout(testTimer);
+  const {total, correct}=testState;
+  const pct=Math.round(correct/total*100);
+  $('#testPlayCard').classList.add('hidden'); $('#testResultCard').classList.remove('hidden');
+  moveBoardHome();
+  // 記録
+  state.solved+=total; state.stars+=correct; state.challenge=Math.min(10, state.challenge+correct);
+  state.bestStreak=Math.max(state.bestStreak, testState.correct);
+  awardStickers(); renderStats();
+  $('#testResultEmoji').textContent = pct>=90?'🏆':pct>=70?'🌟':pct>=50?'😊':'🌱';
+  $('#testResultTitle').textContent=`${total}問テストおつかれさま！`;
+  $('#testResultText').textContent=`${correct} / ${total} 正解（${pct}%）`;
+  const starsN = pct>=90?3:pct>=70?2:pct>=50?1:0;
+  $('#testResultStars').textContent = starsN>0 ? '⭐'.repeat(starsN)+' すごい！':'がんばったね！次はもっと正解できるよ';
+  if(pct>=70){ sndCelebrate(); burst(innerWidth/2, innerHeight/2, 160); praise(); }
+  testState=null;
+}
+function quitTest(){
+  clearTimeout(testTimer); testState=null; moveBoardHome();
+  $('#testPlayCard').classList.add('hidden'); $('#testResultCard').classList.add('hidden'); $('#testStartCard').classList.remove('hidden');
+  say('テストをやめたよ。また挑戦してね！');
+}
+$('#testStartBtn').onclick=()=>{ sndClick(); startTest(); };
+$('#testQuitBtn').onclick=()=>{ sndClick(); quitTest(); };
+$('#testRetryBtn').onclick=()=>{ sndClick(); startTest(); };
+$('#testBackBtn').onclick=()=>{ sndClick(); $('#testResultCard').classList.add('hidden'); $('#testStartCard').classList.remove('hidden'); };
+$('#testSorobanReset').onclick=()=>{ sndClick(); if(testState) setSoroban(0); };
+$('#testSorobanCheck').onclick=()=>{
+  if(!testState||testState.kind!=='soroban'||testState.answered) return;
+  testState.answered=true;
+  const fb=$('#testFeedback');
+  if(sorobanValue()===testState.target){ testState.correct++; sndCorrect(); fb.className='feedback good'; fb.textContent=`正解！ ${testState.target} 🎉`; testTimer=setTimeout(()=>{ testState.idx++; nextTestQuestion(); },1000); puzzleDone(); }
+  else { sndWrong(); fb.className='feedback try'; fb.textContent=`ざんねん！つぎへ…`; testTimer=setTimeout(()=>{ testState.idx++; nextTestQuestion(); },1400); }
+  updateTestHeader();
+};
+function puzzleDone(){ if(testState&&testState.correct%10===0){ sndCelebrate(); burst(innerWidth/2,180,60);} }
+pillGroup('#testSubjectGroup', b=>{ testSubject=b.dataset.subject; });
+pillGroup('#testTotalGroup', b=>{ testTotal=parseInt(b.dataset.total,10); });
 
 /* ========== init ========== */
 drawTicks();
